@@ -10,9 +10,10 @@ function App() {
   const [num1, setNum1] = useState(0);   // Sum calculation
   const [num2, setNum2] = useState(0);
   const [isDisabled, setIsDisabled] = useState(false);  // Enable/Disable button
+  const [isShowDisabled, setIsShowDisabled] = useState(false); // Show button disable state
   const [items, setItems] = useState([]);  // Dynamic child components
 
-  const itemList = ['Red', 'Blue', 'Orange', 'Green', 'Black'];
+  const itemList = ['Apple', 'Banana', 'Orange', 'Grapes', 'Mango'];
   const filteredItems = itemList.filter(item =>
     item.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -27,7 +28,7 @@ function App() {
   return (
     <div className="app">
       {/* Task 1: Display JSX */}
-      <h1 className="title">Display JSX</h1>
+      <h1 className="title">Interactive Task App</h1>
 
       {/* Task 1.1: Display Array of Records on Screen */}
       <div className="task">
@@ -64,10 +65,20 @@ function App() {
         </ul>
       </div>
 
-      {/* Task 4: Show/Hide Element */}
+      {/* Task 4: Show/Hide Element with Enable/Disable Button */}
       <div className="task">
-        <h2>Show/Hide Element</h2>
-        <button className="btn" onClick={() => setIsVisible(!isVisible)}>
+        <h2>Show/Hide Element & Enable/Disable Button</h2>
+        <button
+          className="btn"
+          onClick={() => setIsShowDisabled(!isShowDisabled)}
+        >
+          {isShowDisabled ? 'Enable' : 'Disable'} Show/Hide Button
+        </button>
+        <button
+          className="btn"
+          onClick={() => setIsVisible(!isVisible)}
+          disabled={isShowDisabled}
+        >
           {isVisible ? 'Hide' : 'Show'}
         </button>
         {isVisible && <p>This element is visible!</p>}
@@ -95,20 +106,22 @@ function App() {
         <p>You typed: {text}</p>
       </div>
 
-      {/* Task 7: Sum of Two Numbers */}
+      {/* Task 7: Sum of Two Numbers (With Negative Support) */}
       <div className="task">
         <h2>Sum of Two Numbers</h2>
         <input
           className="input-box"
           type="number"
           value={num1}
-          onChange={(e) => setNum1(Number(e.target.value))}
+          onChange={(e) => setNum1(parseFloat(e.target.value))}
+          placeholder="Enter a number"
         />
         <input
           className="input-box"
           type="number"
           value={num2}
-          onChange={(e) => setNum2(Number(e.target.value))}
+          onChange={(e) => setNum2(parseFloat(e.target.value))}
+          placeholder="Enter another number"
         />
         <p>Sum: {num1 + num2}</p>
       </div>
